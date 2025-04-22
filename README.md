@@ -4,215 +4,230 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Claybie Mug Customizer</title>
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
     body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f1e7;
+      color: #800020;
       margin: 0;
       padding: 0;
-      background-color: #fdf6f0;
-      color: #4a1c1c;
     }
     .container {
-      max-width: 800px;
-      margin: auto;
+      max-width: 700px;
+      margin: 0 auto;
       padding: 20px;
     }
-    h1, h2, h3 {
-      color: #b31334;
+    h1, h2 {
+      text-align: center;
     }
     .question {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
-    .question label, .question input, .question select, .question textarea {
+    .question label {
       display: block;
       margin-top: 10px;
-    }
-    .price {
-      font-size: 1.2em;
-      margin: 20px 0;
-    }
-    .btn {
-      background-color: #b31334;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 8px;
-      margin-top: 20px;
     }
     .hidden {
       display: none;
     }
+    .total {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 20px 0;
+      text-align: center;
+    }
+    button {
+      background-color: #800020;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px auto;
+      display: block;
+    }
+    button:hover {
+      background-color: #a52a2a;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .step {
+      display: none;
+    }
+    .step.active {
+      display: block;
+    }
+    .payment-links a {
+      display: block;
+      margin: 10px 0;
+      color: #800020;
+      font-weight: bold;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
-  <div class="container" id="page1">
-    <h1>Welcome to Claybie</h1>
-    <p>At Claybie, your mug becomes your world ✨ We turn cozy cups into magical moments—with Ghibli-style portraits 🌸, anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤. Everything’s handmade, personalized, and totally aesthetic ☁️. So if you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.</p>
-    <button class="btn" onclick="goToPage(2)">Start Customizing</button>
-  </div>  <form id="customForm">
-    <div class="container hidden" id="page2">
-      <h2>Customize Your Mug</h2><!-- Question 1 -->
-  <div class="question">
-    <label>Want portrait on your mug?</label>
-    <select name="portrait" onchange="togglePortraitUpload(this.value)">
-      <option value="none" data-price="0">None</option>
-      <option value="1portrait" data-price="11.63">1 Portrait (+$11.63)</option>
-      <option value="2portrait" data-price="21.01">2 Portraits (+$21.01)</option>
-    </select>
-    <div id="portraitUpload" class="hidden">
-      <label>Upload your portrait (required if selected):</label>
-      <input type="file" id="portraitFile" accept="image/*" required>
+  <div class="container">
+    <div class="step active" id="step1">
+      <h1>Welcome to Claybie</h1>
+      <p>At Claybie, your mug becomes your world. ✨<br>
+        We turn cozy cups into magical moments—with Ghibli-style portraits 🌸, anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤.<br>
+        Everything’s handmade, personalized, and totally aesthetic ☁️. If you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.</p>
+      <button onclick="nextStep()">Start Customizing</button>
+    </div><form id="customForm">
+  <div class="step" id="step2">
+    <h2>Customize Your Mug</h2>
+
+    <div class="question">
+      <label>Want portrait on your mug?</label>
+      <label><input type="radio" name="portrait" value="11.63"> 1 portrait (+$11.63)</label>
+      <label><input type="radio" name="portrait" value="21.01"> 2 portraits (+$21.01)</label>
+      <label><input type="radio" name="portrait" value="0"> None</label>
+      <div id="portraitUpload" class="hidden">
+        <label>Upload your portrait:<input type="file" id="portraitFile"></label>
+      </div>
     </div>
-  </div>
 
-  <!-- Question 2 -->
-  <div class="question">
-    <label>Pick your cute 3D decorations (outside of the mug, small)</label>
-    <select name="decorOutsideSmall" onchange="updatePrice()">
-      <option value="none" data-price="0">None</option>
-      <option value="smallBow" data-price="5.83">Small Bow 🎀 (+$5.83)</option>
-      <option value="threeBows" data-price="9.34">3 Medium Bows 🎀 (+$9.34)</option>
-      <option value="heart" data-price="3.50">Heart ❤️ (+$3.50)</option>
-      <option value="cherry" data-price="8.17">Cherry 🍒 (+$8.17)</option>
-      <option value="strawberry" data-price="7.01">Strawberry 🍓 (+$7.01)</option>
-      <option value="catPaw" data-price="11.68">Cat Footprint 🐾 (+$11.68)</option>
-      <option value="dogPaw" data-price="11.68">Dog Footprint 🐾 (+$11.68)</option>
-      <option value="teddy" data-price="9.34">Teddy Bear 🧸 (+$9.34)</option>
-      <option value="butterfly" data-price="7.01">Butterfly 🦋 (+$7.01)</option>
-    </select>
-  </div>
-
-  <!-- Question 3 -->
-  <div class="question">
-    <label>Want a big 3D outside the mug?</label>
-    <select name="decorBig" onchange="updatePrice()">
-      <option value="none" data-price="0">None</option>
-      <option value="giantBow" data-price="17.51">Giant Bow 🎀❤️ (+$17.51)</option>
-    </select>
-  </div>
-
-  <!-- Question 4 -->
-  <div class="question">
-    <label>Add 3D elements inside the mug (base area)</label>
-    <select name="insideDecor" onchange="updatePrice()">
-      <option value="none" data-price="0">None</option>
-      <option value="bow" data-price="3.50">Bow 🎀 (+$3.50)</option>
-      <option value="heart" data-price="2.34">Heart ❤️ (+$2.34)</option>
-      <option value="cherry" data-price="5.84">Cherry 🍒 (+$5.84)</option>
-      <option value="strawberry" data-price="5.84">Strawberry 🍓 (+$5.84)</option>
-      <option value="catPaw" data-price="3.50">Cat Footprint 🐾 (+$3.50)</option>
-      <option value="dogPaw" data-price="3.50">Dog Footprint 🐾 (+$3.50)</option>
-      <option value="cat" data-price="11.68">Cat 😺 (+$11.68)</option>
-      <option value="dog" data-price="11.68">Dog 😺 (+$11.68)</option>
-      <option value="butterfly" data-price="7.01">Butterfly 🦋 (+$7.01)</option>
-    </select>
-  </div>
-
-  <!-- Question 5 -->
-  <div class="question">
-    <label>Decorate the handle?</label>
-    <select name="handleDecor" onchange="updatePrice()">
-      <option value="none" data-price="0">None</option>
-      <option value="bowHandle" data-price="7.01">Bow 🎀 (+$7.01)</option>
-      <option value="catHandle" data-price="9.34">Cat 😺 (+$9.34)</option>
-      <option value="dogHandle" data-price="9.34">Dog 🐶 (+$9.34)</option>
-    </select>
-  </div>
-
-  <!-- Question 6 -->
-  <div class="question">
-    <label>Wanna add text to your mug?</label>
-    <select name="textAdd" onchange="toggleTextInput(this.value)">
-      <option value="none" data-price="0">None</option>
-      <option value="inside" data-price="5.84">Inside the mug (+$5.84)</option>
-      <option value="outside" data-price="8.17">Outside the mug (+$8.17)</option>
-      <option value="both" data-price="11.68">Both (+$11.68)</option>
-    </select>
-    <div id="textInputDiv" class="hidden">
-      <label>Write your text below:</label>
-      <textarea id="mugText" required></textarea>
+    <div class="question">
+      <label>Pick your cute 3D decorations (outside):</label>
+      <select name="smallDecor">
+        <option value="0">None</option>
+        <option value="5.83">Small bow 🎀 (+$5.83)</option>
+        <option value="9.34">3 medium bows 🎀 (+$9.34)</option>
+        <option value="3.50">Heart ❤️ (+$3.50)</option>
+        <option value="8.17">Cherry 🍒 (+$8.17)</option>
+        <option value="7.01">Strawberry 🍓 (+$7.01)</option>
+        <option value="11.68">Cat paw 🐾 (+$11.68)</option>
+        <option value="11.68">Dog paw 🐾 (+$11.68)</option>
+        <option value="9.34">Teddy bear 🧸 (+$9.34)</option>
+        <option value="7.01">Butterfly 🦋 (+$7.01)</option>
+      </select>
     </div>
+
+    <div class="question">
+      <label>Want a big 3D outside the mug?</label>
+      <select name="giantDecor">
+        <option value="0">None</option>
+        <option value="17.51">Giant Bow 🎀❤️ (+$17.51)</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label>Add 3D inside the mug (base):</label>
+      <select name="insideDecor">
+        <option value="0">None</option>
+        <option value="3.50">Bow 🎀 (+$3.50)</option>
+        <option value="2.34">Heart ❤️ (+$2.34)</option>
+        <option value="5.84">Cherry 🍒 (+$5.84)</option>
+        <option value="5.84">Strawberry 🍓 (+$5.84)</option>
+        <option value="3.50">Cat paw 🐾 (+$3.50)</option>
+        <option value="3.50">Dog paw 🐾 (+$3.50)</option>
+        <option value="11.68">Cat 😺 (+$11.68)</option>
+        <option value="11.68">Dog 🐶 (+$11.68)</option>
+        <option value="7.01">Butterfly 🦋 (+$7.01)</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label>Decorate the handle?</label>
+      <select name="handleDecor">
+        <option value="0">None</option>
+        <option value="7.01">Bow 🎀 (+$7.01)</option>
+        <option value="9.34">Cat 😺 (+$9.34)</option>
+        <option value="9.34">Dog 🐶 (+$9.34)</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label>Wanna add text to your mug?</label>
+      <select name="textOption" id="textOption">
+        <option value="0">None</option>
+        <option value="5.84">Inside the mug (+$5.84)</option>
+        <option value="8.17">Outside the mug (+$8.17)</option>
+        <option value="11.68">Both (+$11.68)</option>
+      </select>
+      <div id="textInputWrap" class="hidden">
+        <label>Write your text:<textarea id="customText"></textarea></label>
+      </div>
+    </div>
+
+    <div class="total">Total: $<span id="totalPrice">0.00</span></div>
+    <button type="button" onclick="nextStep()">Next</button>
   </div>
 
-  <div class="price" id="totalPrice">Total Price: $0.00</div>
-  <button class="btn" type="button" onclick="goToPage(3)">Proceed to Buy</button>
-</div>
+  <div class="step" id="step3">
+    <h2>Shipping Info</h2>
+    <label>Full Name: <input type="text" required></label>
+    <label>Contact Number: <input type="text" required></label>
+    <label>Email: <input type="email" required></label>
+    <label>Shipping Address: <textarea required></textarea></label>
+    <button type="button" onclick="nextStep()">Proceed to Payment</button>
+  </div>
 
-<!-- Page 3: Shipping Info -->
-<div class="container hidden" id="page3">
-  <h2>Shipping Details</h2>
-  <label>Full Name:</label>
-  <input type="text" name="fullName" required>
-  <label>Contact Number:</label>
-  <input type="tel" name="contact" required>
-  <label>Email:</label>
-  <input type="email" name="email" required>
-  <label>Shipping Address:</label>
-  <textarea name="address" required></textarea>
-  <button class="btn" type="button" onclick="goToPage(4)">Go to Payment</button>
-</div>
+  <div class="step" id="step4">
+    <h2>Payment</h2>
+    <div class="payment-links">
+      <a href="upi://pay?pa=6352177416@ptaxis&pn=Claybie&cu=INR" target="_blank">Pay with Google Pay</a>
+      <a href="https://www.paypal.me/KavitaVarma883" target="_blank">Pay with PayPal</a>
+    </div>
+    <button type="button" onclick="nextStep()">I've Paid</button>
+  </div>
 
-<!-- Page 4: Payment -->
-<div class="container hidden" id="page4">
-  <h2>Payment</h2>
-  <p>Google Pay: <strong>6352177416@ptaxis</strong></p>
-  <p>PayPal: <a href="https://www.paypal.me/KavitaVarma883" target="_blank">Click here to pay</a></p>
-  <p><em>Please complete the payment before confirming.</em></p>
-  <button class="btn" type="button" onclick="goToPage(5)">I’ve Paid</button>
-</div>
+  <div class="step" id="step5">
+    <h2>Thanks for ordering!</h2>
+    <p>Your order is confirmed. We’ll contact you soon with your magical mug update!</p>
+  </div>
+</form>
 
-<!-- Page 5: Confirmation -->
-<div class="container hidden" id="page5">
-  <h2>Thank You!</h2>
-  <p>Your order is confirmed. We’re so excited to make your magical mug!</p>
-</div>
+  </div>  <script>
+    let currentStep = 0;
+    const steps = document.querySelectorAll('.step');
 
-  </form>  <script>
-    let total = 0;
-
-    function goToPage(pageNum) {
-      document.querySelectorAll('.container').forEach(c => c.classList.add('hidden'));
-      document.getElementById('page' + pageNum).classList.remove('hidden');
-      updatePrice();
-    }
-
-    function updatePrice() {
-      total = 0;
-      document.querySelectorAll('select').forEach(sel => {
-        const price = parseFloat(sel.selectedOptions[0].getAttribute('data-price')) || 0;
-        total += price;
-      });
-      document.getElementById('totalPrice').textContent = 'Total Price: $' + total.toFixed(2);
-    }
-
-    function togglePortraitUpload(val) {
-      const uploadDiv = document.getElementById('portraitUpload');
-      if (val === 'none') {
-        uploadDiv.classList.add('hidden');
-        document.getElementById('portraitFile').required = false;
-      } else {
-        uploadDiv.classList.remove('hidden');
-        document.getElementById('portraitFile').required = true;
+    function nextStep() {
+      steps[currentStep].classList.remove('active');
+      currentStep++;
+      if (steps[currentStep]) {
+        steps[currentStep].classList.add('active');
       }
-      updatePrice();
     }
 
-    function toggleTextInput(val) {
-      const textDiv = document.getElementById('textInputDiv');
-      if (val === 'none') {
-        textDiv.classList.add('hidden');
-        document.getElementById('mugText').required = false;
-      } else {
-        textDiv.classList.remove('hidden');
-        document.getElementById('mugText').required = true;
+    const form = document.getElementById('customForm');
+    const totalPriceEl = document.getElementById('totalPrice');
+    const portraitUpload = document.getElementById('portraitUpload');
+    const textInputWrap = document.getElementById('textInputWrap');
+
+    form.addEventListener('change', () => {
+      let total = 0;
+      const data = new FormData(form);
+      for (let value of data.values()) {
+        if (!isNaN(parseFloat(value))) {
+          total += parseFloat(value);
+        }
       }
-      updatePrice();
-    }
+      totalPriceEl.textContent = total.toFixed(2);
 
-    document.addEventListener('DOMContentLoaded', () => updatePrice());
+      const portraitVal = data.get("portrait");
+      if (portraitVal && parseFloat(portraitVal) > 0) {
+        portraitUpload.classList.remove("hidden");
+        document.getElementById("portraitFile").setAttribute("required", "true");
+      } else {
+        portraitUpload.classList.add("hidden");
+        document.getElementById("portraitFile").removeAttribute("required");
+      }
+
+      const textVal = data.get("textOption");
+      if (textVal && parseFloat(textVal) > 0) {
+        textInputWrap.classList.remove("hidden");
+        document.getElementById("customText").setAttribute("required", "true");
+      } else {
+        textInputWrap.classList.add("hidden");
+        document.getElementById("customText").removeAttribute("required");
+      }
+    });
   </script></body>
 </html>
