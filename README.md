@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,9 +38,8 @@
         }
         .price {
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             margin-top: 1rem;
-            color: #a52a2a;
         }
         .button {
             background-color: #800020;
@@ -50,7 +48,6 @@
             border: none;
             cursor: pointer;
             font-size: 1rem;
-            margin-top: 1rem;
         }
         .button:hover {
             background-color: #a52a2a;
@@ -60,9 +57,6 @@
         }
     </style>
     <script>
-        let basePrice = 46.69;
-        let totalPrice = basePrice;
-
         const priceMap = {
             '1-portrait': 11.63,
             '2-portrait': 21.01,
@@ -91,27 +85,27 @@
             'text-inside': 5.84,
             'text-outside': 8.17,
             'text-both': 11.68
-        };
+        };function updatePrice() {
+        let totalPrice = 46.69;
+        const checkboxes = document.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked');
+        checkboxes.forEach(cb => {
+            const id = cb.value;
+            if (priceMap[id]) totalPrice += priceMap[id];
+        });
+        document.getElementById('priceDisplay').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
 
-        function updatePrice() {
-            totalPrice = basePrice;
-            const checkboxes = document.querySelectorAll('input[type="radio"]:checked');
-            checkboxes.forEach(cb => {
-                const id = cb.value;
-                if (priceMap[id]) totalPrice += priceMap[id];
-            });
+        const portrait = document.querySelector('input[name="portrait"]:checked')?.value;
+        document.getElementById('portraitUpload').classList.toggle('hidden', !portrait);
+        document.getElementById('portraitFile').required = !!portrait;
 
-            document.getElementById('priceDisplay').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+        const textChoice = document.querySelector('input[name="text"]:checked')?.value;
+        document.getElementById('textEntry').classList.toggle('hidden', !textChoice);
+        document.getElementById('textInput').required = !!textChoice;
+    }
 
-            const portrait = document.querySelector('input[name="portrait"]:checked')?.value;
-            document.getElementById('portraitUpload')?.classList.toggle('hidden', !portrait);
-            document.getElementById('portraitFile')?.setAttribute('required', portrait ? 'required' : '');
+    window.addEventListener('DOMContentLoaded', updatePrice);
+</script>
 
-            const textChoice = document.querySelector('input[name="text"]:checked')?.value;
-            document.getElementById('textEntry')?.classList.toggle('hidden', !textChoice);
-            document.getElementById('textInput')?.setAttribute('required', textChoice ? 'required' : '');
-        }
-    </script>
 </head>
 <body>
     <header>
@@ -119,17 +113,58 @@
     </header>
     <main>
         <section>
-            <p>
-                At Claybie, your mug becomes your world ✨<br>
-                We turn cozy cups into magical moments—with Ghibli-style portraits 🌸, anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤.<br>
-                Everything’s handmade, personalized, and totally aesthetic ☁️.<br>
-                So if you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.
-            </p>
+            <p>At Claybie, your mug becomes your world ✨<br>
+            We turn cozy cups into magical moments—with Ghibli-style portraits 🌸, anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤.<br>
+            Everything’s handmade, personalized, and totally aesthetic ☁️.<br>
+            So if you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.</p>
         </section>
-        <section>
+        <form enctype="multipart/form-data">
+            <section>
+                <h2>Portrait</h2>
+                <label><input type="radio" name="portrait" value="1-portrait" onchange="updatePrice()"> 1 Portrait</label>
+                <label><input type="radio" name="portrait" value="2-portrait" onchange="updatePrice()"> 2 Portraits</label>
+                <div id="portraitUpload" class="hidden">
+                    <label>Upload your image:
+                        <input type="file" id="portraitFile" name="portraitFile">
+                    </label>
+                </div>
+            </section>
+            <section>
+                <h2>Outside Decorations</h2>
+                <label><input type="checkbox" value="small-bow" onchange="updatePrice()"> Small Bow</label>
+                <label><input type="checkbox" value="3-bows" onchange="updatePrice()"> 3 Bows</label>
+                <label><input type="checkbox" value="heart" onchange="updatePrice()"> Heart</label>
+                <label><input type="checkbox" value="cherry" onchange="updatePrice()"> Cherry</label>
+                <label><input type="checkbox" value="strawberry" onchange="updatePrice()"> Strawberry</label>
+                <label><input type="checkbox" value="cat-footprint" onchange="updatePrice()"> Cat Footprint</label>
+                <label><input type="checkbox" value="dog-footprint" onchange="updatePrice()"> Dog Footprint</label>
+            </section>
+            <section>
+                <h2>Inside Decorations</h2>
+                <label><input type="checkbox" value="inside-heart" onchange="updatePrice()"> Inside Heart</label>
+                <label><input type="checkbox" value="inside-cat" onchange="updatePrice()"> Inside Cat</label>
+                <label><input type="checkbox" value="inside-dog" onchange="updatePrice()"> Inside Dog</label>
+            </section>
+            <section>
+                <h2>Handle Decorations</h2>
+                <label><input type="checkbox" value="handle-bow" onchange="updatePrice()"> Handle Bow</label>
+                <label><input type="checkbox" value="handle-cat" onchange="updatePrice()"> Handle Cat</label>
+                <label><input type="checkbox" value="handle-dog" onchange="updatePrice()"> Handle Dog</label>
+            </section>
+            <section>
+                <h2>Custom Text</h2>
+                <label><input type="radio" name="text" value="text-inside" onchange="updatePrice()"> Text Inside</label>
+                <label><input type="radio" name="text" value="text-outside" onchange="updatePrice()"> Text Outside</label>
+                <label><input type="radio" name="text" value="text-both" onchange="updatePrice()"> Text Inside & Outside</label>
+                <div id="textEntry" class="hidden">
+                    <label>Enter your text:
+                        <textarea id="textInput" name="customText"></textarea>
+                    </label>
+                </div>
+            </section>
             <div class="price" id="priceDisplay">Total Price: $46.69</div>
-            <button class="button" onclick="location.href='page2.html'">Customize Your Mug</button>
-        </section>
+            <button type="submit" class="button">Checkout</button>
+        </form>
     </main>
     <footer>
         <p>© 2025 Claybie. All rights reserved.</p>
