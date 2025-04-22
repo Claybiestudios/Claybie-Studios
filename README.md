@@ -30,7 +30,7 @@
       display: block;
       margin-bottom: 0.5rem;
     }
-    input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+    input[type="text"], input[type="email"], input[type="tel"], input[type="file"], textarea, select {
       width: 100%;
       padding: 0.5rem;
       border: 1px solid #ddd;
@@ -70,7 +70,8 @@
   <div class="container hidden" id="page2">
     <div class="question">
       <label>Want portrait on your mug?</label>
-      <select name="portrait" onchange="togglePortraitUpload(this)">
+      <select name="portrait" id="portrait" required onchange="togglePortraitUpload(this)">
+        <option value="" disabled selected>Select an option</option>
         <option value="none" data-price="0">None</option>
         <option value="1" data-price="11.63">1 portrait</option>
         <option value="2" data-price="21.01">2 portraits</option>
@@ -78,12 +79,11 @@
     </div>
     <div class="question hidden" id="portraitUpload">
       <label>Upload your portrait (required)</label>
-      <input type="file" name="portraitFile">
-    </div><!-- REPEAT FOR OTHER QUESTIONS -->
-<!-- EXAMPLE -->
-<div class="question">
+      <input type="file" name="portraitFile" id="portraitFile">
+    </div><div class="question">
   <label>Pick your cute 3D decorations</label>
-  <select name="decorations" onchange="updatePrice()">
+  <select name="decorations" id="decorations" required onchange="updatePrice()">
+    <option value="" disabled selected>Select an option</option>
     <option value="none" data-price="0">None</option>
     <option value="bow" data-price="5.83">small bow 🎀</option>
     <option value="3bows" data-price="9.34">3 medium size bows 🎀</option>
@@ -97,10 +97,8 @@
   </select>
 </div>
 
-<!-- Continue all questions in same structure -->
-
 <div class="price">Total: $<span id="totalPrice">46.69</span></div>
-<button type="button" onclick="goToPage(3)">Next</button>
+<button type="button" onclick="validatePage2()">Next</button>
 
   </div>  <div class="container hidden" id="page3">
     <div class="question">
@@ -119,7 +117,7 @@
       <label>Shipping address</label>
       <textarea name="address" required></textarea>
     </div>
-    <button type="button" onclick="goToPage(4)">Next</button>
+    <button type="button" onclick="validatePage3()">Next</button>
   </div>  <div class="container hidden" id="page4">
     <h2>Choose Your Payment Method</h2>
     <div class="question">
@@ -138,7 +136,6 @@
   </form>  <footer>
     <p>Claybie &copy; 2025</p>
   </footer>  <script>
-    let currentPage = 1;
     let basePrice = 46.69;
 
     function goToPage(num) {
@@ -152,12 +149,13 @@
     function togglePortraitUpload(select) {
       const value = select.value;
       const upload = document.getElementById('portraitUpload');
+      const fileInput = document.getElementById('portraitFile');
       if (value === 'none') {
         upload.classList.add('hidden');
-        upload.querySelector('input').required = false;
+        fileInput.required = false;
       } else {
         upload.classList.remove('hidden');
-        upload.querySelector('input').required = true;
+        fileInput.required = true;
       }
       updatePrice();
     }
@@ -165,10 +163,41 @@
     function updatePrice() {
       let total = basePrice;
       document.querySelectorAll('select').forEach(select => {
-        const price = parseFloat(select.selectedOptions[0].dataset.price || 0);
-        total += price;
+        const selected = select.selectedOptions[0];
+        if (selected && selected.dataset.price) {
+          total += parseFloat(selected.dataset.price);
+        }
       });
       document.getElementById('totalPrice').textContent = total.toFixed(2);
+    }
+
+    function validatePage2() {
+      const selects = document.querySelectorAll('#page2 select');
+      for (let select of selects) {
+        if (!select.value) {
+          alert("Please fill out all customization options.");
+          return;
+        }
+      }
+      const portraitVal = document.getElementById('portrait').value;
+      const portraitFile = document.getElementById('portraitFile');
+      if (portraitVal !== 'none' && !portraitFile.value) {
+        alert("Please upload your portrait.");
+        return;
+      }
+      goToPage(3);
+    }
+
+    function validatePage3() {
+      const form = document.getElementById('customizerForm');
+      const inputs = form.querySelectorAll('#page3 input, #page3 textarea');
+      for (let input of inputs) {
+        if (!input.value.trim()) {
+          alert("Please fill out all personal details.");
+          return;
+        }
+      }
+      goToPage(4);
     }
 
     document.getElementById('customizerForm').addEventListener('submit', function(e) {
