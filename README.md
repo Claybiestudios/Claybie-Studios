@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +39,9 @@
         }
         .price {
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            color: #a52a2a;
         }
         .button {
             background-color: #800020;
@@ -47,6 +50,7 @@
             border: none;
             cursor: pointer;
             font-size: 1rem;
+            margin-top: 1rem;
         }
         .button:hover {
             background-color: #a52a2a;
@@ -56,55 +60,58 @@
         }
     </style>
     <script>
-        let totalPrice = 46.69; // BASE PRICEconst priceMap = {
-        '1-portrait': 11.63,
-        '2-portrait': 21.01,
-        'small-bow': 5.83,
-        '3-bows': 9.34,
-        'heart': 3.50,
-        'cherry': 8.17,
-        'strawberry': 7.01,
-        'cat-footprint': 11.68,
-        'dog-footprint': 11.68,
-        'teddy-bear': 9.34,
-        'butterfly': 7.01,
-        'giant-bow': 17.51,
-        'inside-bow': 3.50,
-        'inside-heart': 2.34,
-        'inside-cherry': 5.84,
-        'inside-strawberry': 5.84,
-        'inside-cat-footprint': 3.50,
-        'inside-dog-footprint': 3.50,
-        'inside-cat': 11.68,
-        'inside-dog': 11.68,
-        'inside-butterfly': 7.01,
-        'handle-bow': 7.01,
-        'handle-cat': 9.34,
-        'handle-dog': 9.34,
-        'text-inside': 5.84,
-        'text-outside': 8.17,
-        'text-both': 11.68
-    };
+        let basePrice = 46.69;
+        let totalPrice = basePrice;
 
-    function updatePrice() {
-        totalPrice = 46.69;
-        const checkboxes = document.querySelectorAll('input[type="radio"]:checked');
-        checkboxes.forEach(cb => {
-            const id = cb.value;
-            if (priceMap[id]) totalPrice += priceMap[id];
-        });
-        document.getElementById('priceDisplay').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+        const priceMap = {
+            '1-portrait': 11.63,
+            '2-portrait': 21.01,
+            'small-bow': 5.83,
+            '3-bows': 9.34,
+            'heart': 3.50,
+            'cherry': 8.17,
+            'strawberry': 7.01,
+            'cat-footprint': 11.68,
+            'dog-footprint': 11.68,
+            'teddy-bear': 9.34,
+            'butterfly': 7.01,
+            'giant-bow': 17.51,
+            'inside-bow': 3.50,
+            'inside-heart': 2.34,
+            'inside-cherry': 5.84,
+            'inside-strawberry': 5.84,
+            'inside-cat-footprint': 3.50,
+            'inside-dog-footprint': 3.50,
+            'inside-cat': 11.68,
+            'inside-dog': 11.68,
+            'inside-butterfly': 7.01,
+            'handle-bow': 7.01,
+            'handle-cat': 9.34,
+            'handle-dog': 9.34,
+            'text-inside': 5.84,
+            'text-outside': 8.17,
+            'text-both': 11.68
+        };
 
-        const portrait = document.querySelector('input[name="portrait"]:checked')?.value;
-        document.getElementById('portraitUpload').classList.toggle('hidden', !portrait);
-        document.getElementById('portraitFile').required = !!portrait;
+        function updatePrice() {
+            totalPrice = basePrice;
+            const checkboxes = document.querySelectorAll('input[type="radio"]:checked');
+            checkboxes.forEach(cb => {
+                const id = cb.value;
+                if (priceMap[id]) totalPrice += priceMap[id];
+            });
 
-        const textChoice = document.querySelector('input[name="text"]:checked')?.value;
-        document.getElementById('textEntry').classList.toggle('hidden', !textChoice);
-        document.getElementById('textInput').required = !!textChoice;
-    }
-</script>
+            document.getElementById('priceDisplay').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
 
+            const portrait = document.querySelector('input[name="portrait"]:checked')?.value;
+            document.getElementById('portraitUpload')?.classList.toggle('hidden', !portrait);
+            document.getElementById('portraitFile')?.setAttribute('required', portrait ? 'required' : '');
+
+            const textChoice = document.querySelector('input[name="text"]:checked')?.value;
+            document.getElementById('textEntry')?.classList.toggle('hidden', !textChoice);
+            document.getElementById('textInput')?.setAttribute('required', textChoice ? 'required' : '');
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -112,16 +119,20 @@
     </header>
     <main>
         <section>
-            <p>At Claybie, your mug becomes your world ✨<br>
-            We turn cozy cups into magical moments—with Ghibli-style portraits 🌸, anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤.<br>
-            Everything’s handmade, personalized, and totally aesthetic ☁️.<br>
-            So if you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.</p>
-        </section><!-- More form content will follow on other pages -->
-
-</main>
-<footer>
-    <p>© 2025 Claybie. All rights reserved.</p>
-</footer>
-
+            <p>
+                At Claybie, your mug becomes your world ✨<br>
+                We turn cozy cups into magical moments—with Ghibli-style portraits 🌸, anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤.<br>
+                Everything’s handmade, personalized, and totally aesthetic ☁️.<br>
+                So if you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.
+            </p>
+        </section>
+        <section>
+            <div class="price" id="priceDisplay">Total Price: $46.69</div>
+            <button class="button" onclick="location.href='page2.html'">Customize Your Mug</button>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 Claybie. All rights reserved.</p>
+    </footer>
 </body>
 </html>
