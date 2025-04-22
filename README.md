@@ -28,7 +28,7 @@
     .active {
       display: block;
     }
-    button, select, input[type="text"], input[type="tel"], input[type="email"] {
+    button, select, input[type="text"], input[type="tel"], input[type="email"], input[type="file"] {
       display: block;
       width: 100%;
       margin: 1rem 0;
@@ -46,6 +46,9 @@
     h1, h2 {
       color: #d6336c;
       text-align: center;
+    }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -71,13 +74,15 @@
       <h2>Customize Your Claybie Mug</h2>
       <form id="mugForm">
         <label>Portrait?
-          <select name="portrait" required onchange="updatePrice()">
+          <select name="portrait" required onchange="updatePrice(); togglePortraitUpload(this.value)">
             <option value="">Select</option>
             <option value="0">None</option>
             <option value="11.63">1 portrait (+$11.63)</option>
             <option value="21.01">2 portraits (+$21.01)</option>
           </select>
         </label>
+        <input type="file" name="portraitFile" id="portraitFile" class="hidden" accept="image/*" />
+
         <label>Small 3D decorations:
           <select name="small3d" required onchange="updatePrice()">
             <option value="">Select</option>
@@ -110,7 +115,7 @@
           </select>
         </label>
         <label>Text on mug:
-          <select name="text" required onchange="updatePrice()">
+          <select name="text" required onchange="updatePrice(); toggleTextInput(this.value)">
             <option value="">Select</option>
             <option value="0">None</option>
             <option value="5.84">Inside (+$5.84)</option>
@@ -118,6 +123,8 @@
             <option value="11.68">Both (+$11.68)</option>
           </select>
         </label>
+        <input type="text" name="customText" id="customText" class="hidden" placeholder="Enter your custom text..." />
+
         <div>Total: $<span id="totalPrice">46.69</span></div>
         <button type="submit">Next</button>
       </form>
@@ -165,7 +172,17 @@
       document.getElementById('totalPrice').innerText = basePrice.toFixed(2);
     }
 
-    // Prevent going forward without completing the forms
+    function toggleTextInput(value) {
+      const input = document.getElementById('customText');
+      input.classList.toggle('hidden', value === "0" || value === "");
+    }
+
+    function togglePortraitUpload(value) {
+      const fileInput = document.getElementById('portraitFile');
+      fileInput.classList.toggle('hidden', value === "0" || value === "");
+    }
+
+    // Form validation and page transitions
     document.getElementById('mugForm').addEventListener('submit', function(e) {
       e.preventDefault();
       if (this.checkValidity()) goToPage(3);
