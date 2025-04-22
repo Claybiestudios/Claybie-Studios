@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,10 +40,7 @@
     .hidden { display: none; }
   </style>
 </head>
-<body>
-
-<!-- Page 1 -->
-<section id="page1">
+<body><!-- Page 1 --><section id="page1">
   <h1>Welcome to Claybie!</h1>
   <p>
     At Claybie, your mug becomes your world ✨<br>
@@ -54,88 +50,89 @@
     So if you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.
   </p>
   <button class="button" onclick="nextPage('page1','page2')">Customize Your Mug</button>
-</section>
-
-<!-- Page 2 - Customization Form -->
-<section id="page2" class="hidden">
+</section><!-- Page 2 - Customization Form --><section id="page2" class="hidden">
   <h2>Mug Customization</h2>
   <form id="customForm">
-    <input type="hidden" id="basePrice" value="46.69">
+    <input type="hidden" id="basePrice" value="46.69"><!-- Question 1 -->
+<label>Want portrait on your mug?</label>
+<select id="portrait" name="portrait" required onchange="handlePortrait(this.value)">
+  <option value="">--Select--</option>
+  <option value="1" data-price="11.63">1 portrait</option>
+  <option value="2" data-price="21.01">2 portraits</option>
+  <option value="none" data-price="0">No portrait</option>
+</select>
 
-    <label>Want portrait on your mug?</label>
-    <select id="portrait" name="portrait" required onchange="handlePortrait(this.value)">
-      <option value="">--Select--</option>
-      <option value="1" data-price="11.63">1 portrait</option>
-      <option value="2" data-price="21.01">2 portraits</option>
-      <option value="none" data-price="0">No portrait</option>
-    </select>
-    <div id="portraitUpload" class="hidden">
-      <label>Upload your portrait</label>
-      <input type="file" name="portraitFile" id="portraitFile" accept="image/*">
-    </div>
+<div id="portraitUpload" class="hidden">
+  <label>Upload your portrait</label>
+  <input type="file" name="portraitFile" id="portraitFile" accept="image/*">
+</div>
 
-    <label>Pick your cute 3D decorations (outside of the mug, small)</label>
-    <select id="decorSmall" name="decorSmall" required>
-      <option value="">--Select--</option>
-      <option data-price="5.83">small bow 🎀</option>
-      <option data-price="9.34">3 medium size bows 🎀</option>
-      <option data-price="3.50">heart ❤️</option>
-      <option data-price="8.17">cherry 🍒</option>
-      <option data-price="7.01">strawberry 🍓</option>
-      <option data-price="11.68">cat footprint 🐾</option>
-      <option data-price="11.68">dog footprint 🐾</option>
-      <option data-price="9.34">teddy bear 🧸</option>
-      <option data-price="7.01">butterfly 🦋</option>
-    </select>
+<!-- Question 2 -->
+<label>Pick your cute 3D decorations (outside of the mug, small)</label>
+<select id="decorSmall" name="decorSmall" required>
+  <option value="">--Select--</option>
+  <option data-price="5.83">small bow 🎀</option>
+  <option data-price="9.34">3 medium size bows 🎀</option>
+  <option data-price="3.50">heart ❤️</option>
+  <option data-price="8.17">cherry 🍒</option>
+  <option data-price="7.01">strawberry 🍓</option>
+  <option data-price="11.68">cat footprint 🐾</option>
+  <option data-price="11.68">dog footprint 🐾</option>
+  <option data-price="9.34">teddy bear 🧸</option>
+  <option data-price="7.01">butterfly 🦋</option>
+</select>
 
-    <label>Want a big 3D outside the mug?</label>
-    <select id="decorBig" name="decorBig" required>
-      <option value="">--Select--</option>
-      <option data-price="17.51">Giant bow 🎀❤️</option>
-    </select>
+<!-- Question 3 -->
+<label>Want a big 3D outside the mug?</label>
+<select id="decorBig" name="decorBig" required>
+  <option value="">--Select--</option>
+  <option data-price="17.51">Giant bow 🎀❤️</option>
+</select>
 
-    <label>Add 3D elements inside the mug (base area)</label>
-    <select id="decorInside" name="decorInside" required>
-      <option value="">--Select--</option>
-      <option data-price="3.50">bow 🎀</option>
-      <option data-price="2.34">heart ❤️</option>
-      <option data-price="5.84">cherry 🍒</option>
-      <option data-price="5.84">strawberry 🍓</option>
-      <option data-price="3.50">cat footprint 🐾</option>
-      <option data-price="3.50">dog footprint 🐾</option>
-      <option data-price="11.68">cat 😺</option>
-      <option data-price="11.68">dog 😺</option>
-      <option data-price="7.01">butterfly 🦋</option>
-    </select>
+<!-- Question 4 -->
+<label>Add 3D elements inside the mug (base area)</label>
+<select id="decorInside" name="decorInside" required>
+  <option value="">--Select--</option>
+  <option data-price="3.50">bow 🎀</option>
+  <option data-price="2.34">heart ❤️</option>
+  <option data-price="5.84">cherry 🍒</option>
+  <option data-price="5.84">strawberry 🍓</option>
+  <option data-price="3.50">cat footprint 🐾</option>
+  <option data-price="3.50">dog footprint 🐾</option>
+  <option data-price="11.68">cat 😺</option>
+  <option data-price="11.68">dog 😺</option>
+  <option data-price="7.01">butterfly 🦋</option>
+</select>
 
-    <label>Decorate the handle?</label>
-    <select id="handleDecor" name="handleDecor" required>
-      <option value="">--Select--</option>
-      <option data-price="7.01">bow 🎀</option>
-      <option data-price="9.34">cat, on the handle 😺</option>
-      <option data-price="9.34">dog, on the handle 🐶</option>
-    </select>
+<!-- Question 5 -->
+<label>Decorate the handle?</label>
+<select id="handleDecor" name="handleDecor" required>
+  <option value="">--Select--</option>
+  <option data-price="7.01">bow 🎀</option>
+  <option data-price="9.34">cat, on the handle 😺</option>
+  <option data-price="9.34">dog, on the handle 🐶</option>
+</select>
 
-    <label>Wanna add text to your mug?</label>
-    <select id="textOption" name="textOption" required onchange="handleText(this.value)">
-      <option value="">--Select--</option>
-      <option value="inside" data-price="5.84">Inside the mug</option>
-      <option value="outside" data-price="8.17">Outside the mug</option>
-      <option value="both" data-price="11.68">Both inside and outside</option>
-      <option value="none" data-price="0">No text</option>
-    </select>
-    <div id="textInput" class="hidden">
-      <label>Write your text below</label>
-      <textarea name="customText" id="customText" required></textarea>
-    </div>
+<!-- Question 6 -->
+<label>Wanna add text to your mug?</label>
+<select id="textOption" name="textOption" required onchange="handleText(this.value)">
+  <option value="">--Select--</option>
+  <option value="inside" data-price="5.84">Inside the mug</option>
+  <option value="outside" data-price="8.17">Outside the mug</option>
+  <option value="both" data-price="11.68">Both inside and outside</option>
+  <option value="none" data-price="0">No text</option>
+</select>
 
-    <h3>Total Price: $<span id="totalPrice">46.69</span></h3>
-    <button type="button" class="button" onclick="nextPage('page2','page3')">Next</button>
+<div id="textInput" class="hidden">
+  <label>Write your text below</label>
+  <textarea name="customText" id="customText" required></textarea>
+</div>
+
+<h3>Total Price: $<span id="totalPrice">46.69</span></h3>
+<button type="button" class="button" onclick="nextPage('page2','page3')">Next</button>
+
   </form>
-</section>
-
-<!-- Page 3 - Contact Info -->
-<section id="page3" class="hidden">
+</section><!-- Page 3 - Contact Info --><section id="page3" class="hidden">
   <h2>Your Details</h2>
   <form id="infoForm" onsubmit="event.preventDefault(); nextPage('page3','page4');">
     <label>Full Name</label>
@@ -148,25 +145,17 @@
     <textarea name="address" required></textarea>
     <button type="submit" class="button">Proceed to Payment</button>
   </form>
-</section>
-
-<!-- Page 4 - Payment -->
-<section id="page4" class="hidden">
+</section><!-- Page 4 - Payment --><section id="page4" class="hidden">
   <h2>Payment</h2>
   <p>Choose a payment method:</p>
   <p><strong>Google Pay:</strong> 6352177416@ptaxis</p>
   <p><strong>PayPal:</strong> <a href="https://www.paypal.me/KavitaVarma883" target="_blank">paypal.me/KavitaVarma883</a></p>
-  <p>After payment, click below to confirm:</p>
-  <button class="button" onclick="nextPage('page4','page5')">Confirm Payment</button>
-</section>
-
-<!-- Page 5 - Confirmation -->
-<section id="page5" class="hidden">
+  <p>Once payment is done, click below to confirm:</p>
+  <button class="button" onclick="nextPage('page4','page5')">I Have Paid</button>
+</section><!-- Page 5 - Confirmation --><section id="page5" class="hidden">
   <h2>Thank you for ordering!</h2>
   <p>Your order is confirmed. You’re the best!</p>
-</section>
-
-<script>
+</section><script>
 function nextPage(current, next) {
   document.getElementById(current).classList.add('hidden');
   document.getElementById(next).classList.remove('hidden');
@@ -207,7 +196,5 @@ function updatePrice() {
   });
   document.getElementById('totalPrice').innerText = total.toFixed(2);
 }
-</script>
-
-</body>
+</script></body>
 </html>
