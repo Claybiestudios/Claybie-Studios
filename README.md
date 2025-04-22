@@ -1,9 +1,6 @@
-<!-- FULL HTML FILE BELOW -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Claybie Mug Customizer</title>
   <style>
     body {
@@ -66,7 +63,6 @@
   <header>
     <h1>Claybie Mug Customizer</h1>
   </header>
-
   <div class="container" id="page1">
     <p>At Claybie, your mug becomes your world ✨<br>We turn cozy cups into magical moments—with Ghibli-style portraits 🌸, anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤.<br>Everything’s handmade, personalized, and totally aesthetic ☁️.<br>If you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.</p>
     <button onclick="goToPage(2)">Customize Your Mug</button>
@@ -85,9 +81,8 @@
       </div>
       <div class="question hidden" id="portraitUpload">
         <label>Upload your portrait (required)</label>
-        <input type="file" name="portraitFile" id="portraitFile" />
+        <input type="file" name="portraitFile" id="portraitFile">
       </div>
-
       <div class="question">
         <label>Pick your cute 3D decorations</label>
         <select name="decorations" id="decorations" required onchange="updatePrice()">
@@ -104,7 +99,6 @@
           <option value="butterfly" data-price="7.01">butterfly 🦋</option>
         </select>
       </div>
-
       <div class="price">Total: $<span id="totalPrice">46.69</span></div>
       <button type="button" onclick="validatePage2()">Next</button>
     </div>
@@ -112,15 +106,15 @@
     <div class="container hidden" id="page3">
       <div class="question">
         <label>Full name</label>
-        <input type="text" name="fullname" required />
+        <input type="text" name="fullname" required>
       </div>
       <div class="question">
         <label>Contact number</label>
-        <input type="tel" name="phone" required />
+        <input type="tel" name="phone" required>
       </div>
       <div class="question">
         <label>Email</label>
-        <input type="email" name="email" required />
+        <input type="email" name="email" required>
       </div>
       <div class="question">
         <label>Shipping address</label>
@@ -189,31 +183,35 @@
     }
 
     function validatePage2() {
-      const selects = document.querySelectorAll('#page2 select');
-      for (let select of selects) {
-        if (!select.value) {
-          alert("Please fill out all customization options.");
-          return;
-        }
-      }
-      const portraitVal = document.getElementById('portrait').value;
+      const portraitSelect = document.getElementById('portrait');
+      const decorationSelect = document.getElementById('decorations');
+      const portraitVal = portraitSelect.value;
       const portraitFile = document.getElementById('portraitFile');
-      if (portraitVal !== 'none' && !portraitFile.value) {
-        alert("Please upload your portrait.");
+
+      if (!portraitVal || !decorationSelect.value) {
+        alert("Please select both portrait and decoration options.");
         return;
       }
+
+      if (portraitVal !== 'none' && !portraitFile.value) {
+        alert("Please upload your portrait file.");
+        return;
+      }
+
       goToPage(3);
     }
 
     function validatePage3() {
-      const form = document.getElementById('customizerForm');
-      const inputs = form.querySelectorAll('#page3 input, #page3 textarea');
-      for (let input of inputs) {
-        if (!input.value.trim()) {
-          alert("Please fill out all personal details.");
-          return;
-        }
+      const name = document.querySelector('[name="fullname"]').value.trim();
+      const phone = document.querySelector('[name="phone"]').value.trim();
+      const email = document.querySelector('[name="email"]').value.trim();
+      const address = document.querySelector('[name="address"]').value.trim();
+
+      if (!name || !phone || !email || !address) {
+        alert("Please fill in all personal details.");
+        return;
       }
+
       goToPage(4);
     }
 
