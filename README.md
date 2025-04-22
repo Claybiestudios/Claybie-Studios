@@ -1,151 +1,159 @@
-<!DOCTYPE html><html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Claybie Mug Customizer</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f5f0;
-      color: #4a1c1c;
+      background-color: #f5f0e6;
+      color: #540b0e;
       margin: 0;
-      padding: 20px;
+      padding: 0;
     }
-    h1, h2, h3 {
-      color: #8b0000;
+    header, footer {
+      background-color: #8b0000;
+      color: white;
+      padding: 1em;
+      text-align: center;
     }
-    .page {
+    main {
+      padding: 2em;
+      max-width: 700px;
+      margin: auto;
+    }
+    section {
+      margin-bottom: 2em;
+    }
+    label, select, input, textarea {
+      display: block;
+      width: 100%;
+      margin-top: 0.5em;
+    }
+    .hidden {
       display: none;
     }
-    .active {
-      display: block;
-    }
-    .question {
-      margin-bottom: 20px;
-    }
-    input[type="text"], input[type="email"], input[type="number"], textarea, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-    }
     button {
-      padding: 10px 20px;
       background-color: #8b0000;
       color: white;
       border: none;
-      cursor: pointer;
+      padding: 1em;
+      font-size: 1em;
       border-radius: 5px;
+      cursor: pointer;
     }
-    .price {
-      font-size: 20px;
+    h1, h2 {
+      color: #8b0000;
+    }
+    .price-display {
       font-weight: bold;
+      font-size: 1.2em;
+      margin: 1em 0;
     }
   </style>
-</head><body>
-  <div id="page1" class="page active">
-    <h1>Welcome to Claybie!</h1>
-    <p>
-      At Claybie, your mug becomes your world ✨ We turn cozy cups into magical moments—with Ghibli-style portraits 🌸,
-      anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤. Everything’s handmade,
-      personalized, and totally aesthetic ☁️. So if you’ve ever dreamed of sipping from a cup that looks like it
-      walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.
-    </p>
-    <button onclick="nextPage(2)">Customize Your Mug</button>
-  </div>  <form id="customizerForm">
-    <div id="page2" class="page">
-      <h2>Customize Your Mug</h2>
-      <div class="question">
-        <label>Want portrait on your mug?</label><br>
-        <select id="portraitOption" name="portraitOption" required onchange="togglePortraitUpload()">
-          <option value="">Select an option</option>
-          <option value="1" data-price="11.63">1 portrait (+$11.63)</option>
-          <option value="2" data-price="21.01">2 portraits (+$21.01)</option>
+</head>
+<body>
+  <header>
+    <h1>Claybie Custom Mugs</h1>
+  </header>  <main id="page1">
+    <section>
+      <h2>Welcome to Claybie</h2>
+      <p>At Claybie, your mug becomes your world ✨ We turn cozy cups into magical moments—with Ghibli-style portraits 🌸, anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤. Everything’s handmade, personalized, and totally aesthetic ☁️. So if you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.</p>
+    </section>
+    <button onclick="showPage('page2')">Start Customizing</button>
+  </main>  <main id="page2" class="hidden">
+    <form id="customForm">
+      <section>
+        <h2>1. Want portrait on your mug?</h2>
+        <select name="portrait" required onchange="handlePortraitUpload(this.value)">
+          <option value="">--Select--</option>
+          <option value="1portrait" data-price="11.63">1 portrait (+$11.63)</option>
+          <option value="2portrait" data-price="21.01">2 portrait (+$21.01)</option>
         </select>
-      </div>
-      <div id="portraitUploadDiv" class="question" style="display: none;">
-        <label>Upload your portrait:</label><br>
-        <input type="file" id="portraitUpload" name="portraitUpload" accept="image/*" required>
-      </div><!-- Additional questions go here with similar structure, each having price impacts -->
-  <!-- For brevity, not repeating all here, but it would be similar selects and toggleable inputs -->
+        <input type="file" name="portraitUpload" id="portraitUpload" class="hidden" required />
+      </section><section>
+    <h2>2. Pick your cute 3D decorations (outside of the mug, small)</h2>
+    <select name="decoration" required onchange="updatePrice()">
+      <option value="">--Select--</option>
+      <option data-price="5.83">small bow 🎀 (+$5.83)</option>
+      <option data-price="9.34">3 medium size bows 🎀 (+$9.34)</option>
+      <option data-price="3.5">heart ❤️ (+$3.50)</option>
+      <option data-price="8.17">cherry 🍒 (+$8.17)</option>
+      <option data-price="7.01">strawberry 🍓 (+$7.01)</option>
+      <option data-price="11.68">cat footprint 🐾 (+$11.68)</option>
+      <option data-price="11.68">dog footprint 🐾 (+$11.68)</option>
+      <option data-price="9.34">teddy bear 🧸 (+$9.34)</option>
+      <option data-price="7.01">butterfly 🦋 (+$7.01)</option>
+    </select>
+  </section>
 
-  <div class="question">
-    <label>Total Price:</label>
-    <p class="price" id="totalPrice">$46.69</p>
-  </div>
-  <button type="button" onclick="nextPage(3)">Proceed to Buyer Info</button>
-</div>
+  <!-- Repeat similar sections for questions 3 to 6 -->
 
-<div id="page3" class="page">
-  <h2>Your Info</h2>
-  <div class="question">
-    <label>Full Name</label>
-    <input type="text" name="fullName" required>
-  </div>
-  <div class="question">
-    <label>Contact Number</label>
-    <input type="text" name="contactNumber" required>
-  </div>
-  <div class="question">
-    <label>Email</label>
-    <input type="email" name="email" required>
-  </div>
-  <div class="question">
-    <label>Shipping Address</label>
-    <textarea name="address" required></textarea>
-  </div>
-  <button type="button" onclick="nextPage(4)">Proceed to Payment</button>
-</div>
+  <section>
+    <h2>Live Total Price:</h2>
+    <div class="price-display" id="totalPrice">$46.69</div>
+  </section>
 
-<div id="page4" class="page">
-  <h2>Payment</h2>
-  <p>Use the following payment methods:</p>
-  <ul>
-    <li><strong>Google Pay:</strong> 6352177416@ptaxis</li>
-    <li><strong>PayPal:</strong> <a href="https://www.paypal.me/KavitaVarma883" target="_blank">Click to Pay</a></li>
-  </ul>
-  <p>After completing payment, click below:</p>
-  <button type="submit">I’ve Paid – Confirm Order</button>
-</div>
+  <button type="button" onclick="showPage('page3')">Proceed to Buy</button>
+</form>
 
-  </form>  <div id="page5" class="page">
-    <h2>Thanks for Ordering!</h2>
-    <p>Your order is confirmed. You’re the best!</p>
-  </div>  <script>
+  </main>  <main id="page3" class="hidden">
+    <form id="detailsForm">
+      <section>
+        <h2>Your Details</h2>
+        <label>Full Name: <input type="text" name="fullName" required /></label>
+        <label>Contact Number: <input type="tel" name="contact" required /></label>
+        <label>Email: <input type="email" name="email" required /></label>
+        <label>Shipping Address: <textarea name="address" required></textarea></label>
+      </section>
+      <button type="button" onclick="showPage('page4')">Next</button>
+    </form>
+  </main>  <main id="page4" class="hidden">
+    <section>
+      <h2>Make Your Payment</h2>
+      <p>Google Pay UPI: <strong>6352177416@ptaxis</strong></p>
+      <p>or</p>
+      <a href="https://www.paypal.me/KavitaVarma883" target="_blank">Pay via PayPal</a>
+      <p>After payment, click below:</p>
+      <button onclick="showPage('page5')">I've Paid</button>
+    </section>
+  </main>  <main id="page5" class="hidden">
+    <section>
+      <h2>Thanks for ordering!</h2>
+      <p>Your order is confirmed. We’re brewing up something cute just for you!</p>
+    </section>
+  </main>  <footer>
+    <p>&copy; 2025 Claybie. Made with love and clay.</p>
+  </footer>  <script>
     let basePrice = 46.69;
+    let totalPrice = basePrice;
 
-    function nextPage(pageNum) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById(`page${pageNum}`).classList.add('active');
-      calculateTotal();
+    function showPage(pageId) {
+      document.querySelectorAll("main").forEach(m => m.classList.add("hidden"));
+      document.getElementById(pageId).classList.remove("hidden");
     }
 
-    function togglePortraitUpload() {
-      const option = document.getElementById('portraitOption').value;
-      const uploadDiv = document.getElementById('portraitUploadDiv');
-      const uploadInput = document.getElementById('portraitUpload');
-      if (option === "1" || option === "2") {
-        uploadDiv.style.display = 'block';
-        uploadInput.required = true;
+    function handlePortraitUpload(value) {
+      const uploadField = document.getElementById("portraitUpload");
+      if (value === "1portrait" || value === "2portrait") {
+        uploadField.classList.remove("hidden");
+        uploadField.required = true;
       } else {
-        uploadDiv.style.display = 'none';
-        uploadInput.required = false;
+        uploadField.classList.add("hidden");
+        uploadField.required = false;
       }
-      calculateTotal();
+      updatePrice();
     }
 
-    function calculateTotal() {
-      let total = basePrice;
-      const selects = document.querySelectorAll('#customizerForm select');
+    function updatePrice() {
+      totalPrice = basePrice;
+      const selects = document.querySelectorAll("select");
       selects.forEach(select => {
-        const option = select.selectedOptions[0];
-        if (option && option.dataset.price) {
-          total += parseFloat(option.dataset.price);
-        }
+        const option = select.options[select.selectedIndex];
+        const price = parseFloat(option.getAttribute("data-price")) || 0;
+        totalPrice += price;
       });
-      document.getElementById('totalPrice').textContent = `$${total.toFixed(2)}`;
+      document.getElementById("totalPrice").textContent = "$" + totalPrice.toFixed(2);
     }
-
-    document.getElementById('customizerForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      nextPage(5);
-    });
-  </script></body></html>
+  </script></body>
+</html>
