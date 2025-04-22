@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,79 +64,92 @@
 <body>
   <header>
     <h1>Claybie Mug Customizer</h1>
-  </header>  <div class="container" id="page1">
+  </header>
+
+  <div class="container" id="page1">
     <p>At Claybie, your mug becomes your world ✨<br>We turn cozy cups into magical moments—with Ghibli-style portraits 🌸, anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤.<br>Everything’s handmade, personalized, and totally aesthetic ☁️.<br>If you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.</p>
     <button onclick="goToPage(2)">Customize Your Mug</button>
-  </div>  <form id="customizerForm">
-  <div class="container hidden" id="page2">
-    <div class="question">
-      <label>Want portrait on your mug?</label>
-      <select name="portrait" id="portrait" required onchange="togglePortraitUpload(this)">
-        <option value="" disabled selected>Select an option</option>
-        <option value="none" data-price="0">None</option>
-        <option value="1" data-price="11.63">1 portrait</option>
-        <option value="2" data-price="21.01">2 portraits</option>
-      </select>
-    </div>
-    <div class="question hidden" id="portraitUpload">
-      <label>Upload your portrait (required)</label>
-      <input type="file" name="portraitFile" id="portraitFile">
-    </div><div class="question">
-  <label>Pick your cute 3D decorations</label>
-  <select name="decorations" id="decorations" required onchange="updatePrice()">
-    <option value="" disabled selected>Select an option</option>
-    <option value="none" data-price="0">None</option>
-    <option value="bow" data-price="5.83">small bow 🎀</option>
-    <option value="3bows" data-price="9.34">3 medium size bows 🎀</option>
-    <option value="heart" data-price="3.50">heart ❤️</option>
-    <option value="cherry" data-price="8.17">cherry 🍒</option>
-    <option value="strawberry" data-price="7.01">strawberry 🍓</option>
-    <option value="catfoot" data-price="11.68">cat footprint 🐾</option>
-    <option value="dogfoot" data-price="11.68">dog footprint 🐾</option>
-    <option value="bear" data-price="9.34">teddy bear 🧸</option>
-    <option value="butterfly" data-price="7.01">butterfly 🦋</option>
-  </select>
-</div>
-
-<div class="price">Total: $<span id="totalPrice">46.69</span></div>
-<button type="button" onclick="validatePage2()">Next</button>
-
-  </div>  <div class="container hidden" id="page3">
-    <div class="question">
-      <label>Full name</label>
-      <input type="text" name="fullname" required>
-    </div>
-    <div class="question">
-      <label>Contact number</label>
-      <input type="tel" name="phone" required>
-    </div>
-    <div class="question">
-      <label>Email</label>
-      <input type="email" name="email" required>
-    </div>
-    <div class="question">
-      <label>Shipping address</label>
-      <textarea name="address" required></textarea>
-    </div>
-    <button type="button" onclick="validatePage3()">Next</button>
-  </div>  <div class="container hidden" id="page4">
-    <h2>Choose Your Payment Method</h2>
-    <div class="question">
-      <label>PayPal</label>
-      <a href="https://www.paypal.me/KavitaVarma883" target="_blank">Pay via PayPal</a>
-    </div>
-    <div class="question">
-      <label>Paytm (scan QR or use UPI)</label>
-      <p>UPI: 6352177416@ptaxis</p>
-    </div>
-    <button type="submit">Confirm Payment</button>
-  </div>  <div class="container hidden" id="page5">
-    <h2>Thanks for ordering!</h2>
-    <p>Your order is confirmed.</p>
   </div>
-  </form>  <footer>
+
+  <form id="customizerForm">
+    <div class="container hidden" id="page2">
+      <div class="question">
+        <label>Want portrait on your mug?</label>
+        <select name="portrait" id="portrait" required onchange="togglePortraitUpload(this)">
+          <option value="" disabled selected>Select an option</option>
+          <option value="none" data-price="0">None</option>
+          <option value="1" data-price="11.63">1 portrait</option>
+          <option value="2" data-price="21.01">2 portraits</option>
+        </select>
+      </div>
+      <div class="question hidden" id="portraitUpload">
+        <label>Upload your portrait (required)</label>
+        <input type="file" name="portraitFile" id="portraitFile">
+      </div>
+      <div class="question">
+        <label>Pick your cute 3D decorations</label>
+        <select name="decorations" id="decorations" required onchange="updatePrice()">
+          <option value="" disabled selected>Select an option</option>
+          <option value="none" data-price="0">None</option>
+          <option value="bow" data-price="5.83">small bow 🎀</option>
+          <option value="3bows" data-price="9.34">3 medium size bows 🎀</option>
+          <option value="heart" data-price="3.50">heart ❤️</option>
+          <option value="cherry" data-price="8.17">cherry 🍒</option>
+          <option value="strawberry" data-price="7.01">strawberry 🍓</option>
+          <option value="catfoot" data-price="11.68">cat footprint 🐾</option>
+          <option value="dogfoot" data-price="11.68">dog footprint 🐾</option>
+          <option value="bear" data-price="9.34">teddy bear 🧸</option>
+          <option value="butterfly" data-price="7.01">butterfly 🦋</option>
+        </select>
+      </div>
+      <div class="price">Total: $<span id="totalPrice">46.69</span></div>
+      <button type="button" onclick="validatePage2()">Next</button>
+    </div>
+
+    <div class="container hidden" id="page3">
+      <div class="question">
+        <label>Full name</label>
+        <input type="text" name="fullname" id="fullname" required>
+      </div>
+      <div class="question">
+        <label>Contact number</label>
+        <input type="tel" name="phone" id="phone" required>
+      </div>
+      <div class="question">
+        <label>Email</label>
+        <input type="email" name="email" id="email" required>
+      </div>
+      <div class="question">
+        <label>Shipping address</label>
+        <textarea name="address" id="address" required></textarea>
+      </div>
+      <button type="button" onclick="validatePage3()">Next</button>
+    </div>
+
+    <div class="container hidden" id="page4">
+      <h2>Choose Your Payment Method</h2>
+      <div class="question">
+        <label>PayPal</label>
+        <a href="https://www.paypal.me/KavitaVarma883" target="_blank">Pay via PayPal</a>
+      </div>
+      <div class="question">
+        <label>Paytm (scan QR or use UPI)</label>
+        <p>UPI: 6352177416@ptaxis</p>
+      </div>
+      <button type="submit">Confirm Payment</button>
+    </div>
+
+    <div class="container hidden" id="page5">
+      <h2>Thanks for ordering!</h2>
+      <p>Your order is confirmed.</p>
+    </div>
+  </form>
+
+  <footer>
     <p>Claybie &copy; 2025</p>
-  </footer>  <script>
+  </footer>
+
+  <script>
     let basePrice = 46.69;
 
     function goToPage(num) {
@@ -189,13 +203,13 @@
     }
 
     function validatePage3() {
-      const form = document.getElementById('customizerForm');
-      const inputs = form.querySelectorAll('#page3 input, #page3 textarea');
-      for (let input of inputs) {
-        if (!input.value.trim()) {
-          alert("Please fill out all personal details.");
-          return;
-        }
+      const fullname = document.getElementById('fullname').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const address = document.getElementById('address').value.trim();
+      if (!fullname || !phone || !email || !address) {
+        alert("Please fill out all personal details.");
+        return;
       }
       goToPage(4);
     }
@@ -204,5 +218,6 @@
       e.preventDefault();
       goToPage(5);
     });
-  </script></body>
+  </script>
+</body>
 </html>
