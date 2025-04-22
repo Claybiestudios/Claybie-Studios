@@ -1,8 +1,9 @@
+<!-- FULL HTML FILE BELOW -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Claybie Mug Customizer</title>
   <style>
     body {
@@ -84,8 +85,9 @@
       </div>
       <div class="question hidden" id="portraitUpload">
         <label>Upload your portrait (required)</label>
-        <input type="file" name="portraitFile" id="portraitFile">
+        <input type="file" name="portraitFile" id="portraitFile" />
       </div>
+
       <div class="question">
         <label>Pick your cute 3D decorations</label>
         <select name="decorations" id="decorations" required onchange="updatePrice()">
@@ -102,6 +104,7 @@
           <option value="butterfly" data-price="7.01">butterfly 🦋</option>
         </select>
       </div>
+
       <div class="price">Total: $<span id="totalPrice">46.69</span></div>
       <button type="button" onclick="validatePage2()">Next</button>
     </div>
@@ -109,19 +112,19 @@
     <div class="container hidden" id="page3">
       <div class="question">
         <label>Full name</label>
-        <input type="text" name="fullname" id="fullname" required>
+        <input type="text" name="fullname" required />
       </div>
       <div class="question">
         <label>Contact number</label>
-        <input type="tel" name="phone" id="phone" required>
+        <input type="tel" name="phone" required />
       </div>
       <div class="question">
         <label>Email</label>
-        <input type="email" name="email" id="email" required>
+        <input type="email" name="email" required />
       </div>
       <div class="question">
         <label>Shipping address</label>
-        <textarea name="address" id="address" required></textarea>
+        <textarea name="address" required></textarea>
       </div>
       <button type="button" onclick="validatePage3()">Next</button>
     </div>
@@ -203,13 +206,13 @@
     }
 
     function validatePage3() {
-      const fullname = document.getElementById('fullname').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const address = document.getElementById('address').value.trim();
-      if (!fullname || !phone || !email || !address) {
-        alert("Please fill out all personal details.");
-        return;
+      const form = document.getElementById('customizerForm');
+      const inputs = form.querySelectorAll('#page3 input, #page3 textarea');
+      for (let input of inputs) {
+        if (!input.value.trim()) {
+          alert("Please fill out all personal details.");
+          return;
+        }
       }
       goToPage(4);
     }
