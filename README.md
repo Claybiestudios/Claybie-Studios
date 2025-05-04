@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,207 +6,198 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f1e6;
-      color: #4a1c1a;
+      background-color: #f8f1e7;
+      color: #6a1b1a;
       margin: 0;
       padding: 0;
     }
-    header, section, footer {
-      padding: 20px;
-      max-width: 800px;
+    .container {
+      max-width: 700px;
       margin: auto;
+      padding: 20px;
     }
-    h1, h2, h3, label {
-      color: #7b1e1e;
+    h1, h2 {
+      color: #6a1b1a;
     }
-    .button {
-      background-color: #7b1e1e;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 20px;
-      cursor: pointer;
+    .hidden {
+      display: none;
     }
-    .button:hover {
-      background-color: #5e1515;
+    label {
+      display: block;
+      margin: 10px 0 5px;
     }
-    input, select, textarea {
+    input[type="text"], input[type="email"], input[type="file"], textarea {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
+      padding: 8px;
+      margin-bottom: 10px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 5px;
     }
-    .hidden { display: none; }
+    button {
+      background-color: #6a1b1a;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px 0;
+    }
+    button:hover {
+      background-color: #8e2e2c;
+    }
   </style>
 </head>
 <body>
-
-<!-- Page 1 -->
-<section id="page1">
-  <h1>Welcome to Claybie!</h1>
-  <p>
-    At Claybie, your mug becomes your world ✨<br>
-    We turn cozy cups into magical moments—with Ghibli-style portraits 🌸,
-    anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤.<br>
+<div class="container" id="page1">
+  <h1>Welcome to Claybie</h1>
+  <p>At Claybie, your mug becomes your world ✨<br>
+    We turn cozy cups into magical moments—with Ghibli-style portraits 🌸, anime character vibes 🎌, and even designs inspired by your fave K-pop idol 🎤.<br>
     Everything’s handmade, personalized, and totally aesthetic ☁️.<br>
-    So if you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.
-  </p>
-  <button class="button" onclick="nextPage('page1','page2')">Customize Your Mug</button>
-</section>
-
-<!-- Page 2 - Customization Form -->
-<section id="page2" class="hidden">
-  <h2>Mug Customization</h2>
+    So if you’ve ever dreamed of sipping from a cup that looks like it walked out of a Studio Ghibli scene or your favourite idols' MV—welcome home.</p>
+  <button onclick="nextPage(2)">Next</button>
+</div><div class="container hidden" id="page2">
+  <h2>Customize Your Mug</h2>
   <form id="customForm">
-    <input type="hidden" id="basePrice" value="46.69">
-
     <label>Want portrait on your mug?</label>
-    <select id="portrait" name="portrait" required onchange="handlePortrait(this.value)">
-      <option value="">--Select--</option>
-      <option value="1" data-price="11.63">1 portrait</option>
-      <option value="2" data-price="21.01">2 portraits</option>
-      <option value="none" data-price="0">No portrait</option>
+    <select name="portrait" onchange="togglePortraitUpload(this.value)">
+      <option value="none">None</option>
+      <option value="1">1 portrait (+$11.63)</option>
+      <option value="2">2 portraits (+$21.01)</option>
     </select>
     <div id="portraitUpload" class="hidden">
       <label>Upload your portrait</label>
-      <input type="file" name="portraitFile" id="portraitFile" accept="image/*">
-    </div>
+      <input type="file" name="portraitImage" id="portraitImage" />
+    </div><label>Pick your cute 3D decorations (outside):</label>
+<select name="decorOutside" onchange="updatePrice()">
+  <option value="none">None</option>
+  <option value="small_bow">Small bow 🎀 (+$5.83)</option>
+  <option value="3_bows">3 medium bows 🎀 (+$9.34)</option>
+  <option value="heart">Heart ❤️ (+$3.50)</option>
+  <option value="cherry">Cherry 🍒 (+$8.17)</option>
+  <option value="strawberry">Strawberry 🍓 (+$7.01)</option>
+  <option value="cat_foot">Cat footprint 🐾 (+$11.68)</option>
+  <option value="dog_foot">Dog footprint 🐾 (+$11.68)</option>
+  <option value="teddy">Teddy bear 🧸 (+$9.34)</option>
+  <option value="butterfly">Butterfly 🦋 (+$7.01)</option>
+</select>
 
-    <label>Pick your cute 3D decorations (outside of the mug, small)</label>
-    <select id="decorSmall" name="decorSmall" required>
-      <option value="">--Select--</option>
-      <option data-price="5.83">small bow 🎀</option>
-      <option data-price="9.34">3 medium size bows 🎀</option>
-      <option data-price="3.50">heart ❤️</option>
-      <option data-price="8.17">cherry 🍒</option>
-      <option data-price="7.01">strawberry 🍓</option>
-      <option data-price="11.68">cat footprint 🐾</option>
-      <option data-price="11.68">dog footprint 🐾</option>
-      <option data-price="9.34">teddy bear 🧸</option>
-      <option data-price="7.01">butterfly 🦋</option>
-    </select>
+<label>Want a big 3D outside the mug?</label>
+<select name="big3d" onchange="updatePrice()">
+  <option value="none">None</option>
+  <option value="giant_bow">Giant bow 🎀❤️ (+$17.51)</option>
+</select>
 
-    <label>Want a big 3D outside the mug?</label>
-    <select id="decorBig" name="decorBig" required>
-      <option value="">--Select--</option>
-      <option data-price="17.51">Giant bow 🎀❤️</option>
-    </select>
+<label>Add 3D elements inside the mug:</label>
+<select name="inside3d" onchange="updatePrice()">
+  <option value="none">None</option>
+  <option value="bow">Bow 🎀 (+$3.50)</option>
+  <option value="heart">Heart ❤️ (+$2.34)</option>
+  <option value="cherry">Cherry 🍒 (+$5.84)</option>
+  <option value="strawberry">Strawberry 🍓 (+$5.84)</option>
+  <option value="cat_foot">Cat footprint 🐾 (+$3.50)</option>
+  <option value="dog_foot">Dog footprint 🐾 (+$3.50)</option>
+  <option value="cat">Cat 😺 (+$11.68)</option>
+  <option value="dog">Dog 😺 (+$11.68)</option>
+  <option value="butterfly">Butterfly 🦋 (+$7.01)</option>
+</select>
 
-    <label>Add 3D elements inside the mug (base area)</label>
-    <select id="decorInside" name="decorInside" required>
-      <option value="">--Select--</option>
-      <option data-price="3.50">bow 🎀</option>
-      <option data-price="2.34">heart ❤️</option>
-      <option data-price="5.84">cherry 🍒</option>
-      <option data-price="5.84">strawberry 🍓</option>
-      <option data-price="3.50">cat footprint 🐾</option>
-      <option data-price="3.50">dog footprint 🐾</option>
-      <option data-price="11.68">cat 😺</option>
-      <option data-price="11.68">dog 😺</option>
-      <option data-price="7.01">butterfly 🦋</option>
-    </select>
+<label>Decorate the handle?</label>
+<select name="handle" onchange="updatePrice()">
+  <option value="none">None</option>
+  <option value="bow">Bow 🎀 (+$7.01)</option>
+  <option value="cat">Cat 😺 (+$9.34)</option>
+  <option value="dog">Dog 🐶 (+$9.34)</option>
+</select>
 
-    <label>Decorate the handle?</label>
-    <select id="handleDecor" name="handleDecor" required>
-      <option value="">--Select--</option>
-      <option data-price="7.01">bow 🎀</option>
-      <option data-price="9.34">cat, on the handle 😺</option>
-      <option data-price="9.34">dog, on the handle 🐶</option>
-    </select>
+<label>Wanna add text to your mug?</label>
+<select name="textOption" onchange="toggleTextBox(this.value)">
+  <option value="none">None</option>
+  <option value="inside">Inside the mug (+$5.84)</option>
+  <option value="outside">Outside the mug (+$8.17)</option>
+  <option value="both">Both (+$11.68)</option>
+</select>
+<div id="textBox" class="hidden">
+  <label>Write your text below</label>
+  <textarea name="customText" required></textarea>
+</div>
+<p><strong>Total Price: $<span id="totalPrice">46.69</span></strong></p>
+<button type="button" onclick="nextPage(3)">Proceed to Buy</button>
 
-    <label>Wanna add text to your mug?</label>
-    <select id="textOption" name="textOption" required onchange="handleText(this.value)">
-      <option value="">--Select--</option>
-      <option value="inside" data-price="5.84">Inside the mug</option>
-      <option value="outside" data-price="8.17">Outside the mug</option>
-      <option value="both" data-price="11.68">Both inside and outside</option>
-      <option value="none" data-price="0">No text</option>
-    </select>
-    <div id="textInput" class="hidden">
-      <label>Write your text below</label>
-      <textarea name="customText" id="customText" required></textarea>
-    </div>
-
-    <h3>Total Price: $<span id="totalPrice">46.69</span></h3>
-    <button type="button" class="button" onclick="nextPage('page2','page3')">Next</button>
   </form>
-</section>
-
-<!-- Page 3 - Contact Info -->
-<section id="page3" class="hidden">
-  <h2>Your Details</h2>
-  <form id="infoForm" onsubmit="event.preventDefault(); nextPage('page3','page4');">
-    <label>Full Name</label>
-    <input type="text" name="fullName" required>
-    <label>Contact Number</label>
-    <input type="tel" name="contactNumber" required>
-    <label>Email</label>
-    <input type="email" name="email" required>
-    <label>Shipping Address</label>
-    <textarea name="address" required></textarea>
-    <button type="submit" class="button">Proceed to Payment</button>
-  </form>
-</section>
-
-<!-- Page 4 - Payment -->
-<section id="page4" class="hidden">
+</div><div class="container hidden" id="page3">
+  <h2>Shipping Details</h2>
+  <label>Full Name</label>
+  <input type="text" required />
+  <label>Contact Number</label>
+  <input type="text" required />
+  <label>Email</label>
+  <input type="email" required />
+  <label>Shipping Address</label>
+  <textarea required></textarea>
+  <button onclick="nextPage(4)">Next</button>
+</div><div class="container hidden" id="page4">
   <h2>Payment</h2>
-  <p>Choose a payment method:</p>
-  <p><strong>Google Pay:</strong> 6352177416@ptaxis</p>
-  <p><strong>PayPal:</strong> <a href="https://www.paypal.me/KavitaVarma883" target="_blank">paypal.me/KavitaVarma883</a></p>
-  <p>After payment, click below to confirm:</p>
-  <button class="button" onclick="nextPage('page4','page5')">Confirm Payment</button>
-</section>
+  <p>Google Pay: <strong>6352177416@ptaxis</strong></p>
+  <p>PayPal: <a href="https://www.paypal.me/KavitaVarma883" target="_blank">Pay Now</a></p>
+  <p>After payment is done, click below to confirm:</p>
+  <button onclick="nextPage(5)">I Have Paid</button>
+</div><div class="container hidden" id="page5">
+  <h2>Thanks for Ordering!</h2>
+  <p>Your order is confirmed. We’re already brewing up the magic!</p>
+</div><script>
+  let basePrice = 46.69;
 
-<!-- Page 5 - Confirmation -->
-<section id="page5" class="hidden">
-  <h2>Thank you for ordering!</h2>
-  <p>Your order is confirmed. You’re the best!</p>
-</section>
-
-<script>
-function nextPage(current, next) {
-  document.getElementById(current).classList.add('hidden');
-  document.getElementById(next).classList.remove('hidden');
-  updatePrice();
-}
-
-function handlePortrait(value) {
-  const portraitUpload = document.getElementById('portraitUpload');
-  if (value === '1' || value === '2') {
-    portraitUpload.classList.remove('hidden');
-    document.getElementById('portraitFile').setAttribute('required', true);
-  } else {
-    portraitUpload.classList.add('hidden');
-    document.getElementById('portraitFile').removeAttribute('required');
+  function nextPage(pageNumber) {
+    document.querySelectorAll(".container").forEach(p => p.classList.add("hidden"));
+    document.getElementById("page" + pageNumber).classList.remove("hidden");
   }
-  updatePrice();
-}
 
-function handleText(value) {
-  const textBox = document.getElementById('textInput');
-  if (value === 'inside' || value === 'outside' || value === 'both') {
-    textBox.classList.remove('hidden');
-    document.getElementById('customText').setAttribute('required', true);
-  } else {
-    textBox.classList.add('hidden');
-    document.getElementById('customText').removeAttribute('required');
+  function togglePortraitUpload(value) {
+    const upload = document.getElementById("portraitUpload");
+    const portraitInput = document.getElementById("portraitImage");
+    if (value !== "none") {
+      upload.classList.remove("hidden");
+      portraitInput.required = true;
+    } else {
+      upload.classList.add("hidden");
+      portraitInput.required = false;
+    }
+    updatePrice();
   }
-  updatePrice();
-}
 
-function updatePrice() {
-  let total = parseFloat(document.getElementById('basePrice').value);
-  const selects = document.querySelectorAll('#customForm select');
-  selects.forEach(sel => {
-    const selected = sel.options[sel.selectedIndex];
-    const price = parseFloat(selected.dataset.price || 0);
-    total += price;
-  });
-  document.getElementById('totalPrice').innerText = total.toFixed(2);
-}
-</script>
+  function toggleTextBox(value) {
+    const textBox = document.getElementById("textBox");
+    if (value !== "none") {
+      textBox.classList.remove("hidden");
+    } else {
+      textBox.classList.add("hidden");
+    }
+    updatePrice();
+  }
 
-</body>
+  function updatePrice() {
+    let price = basePrice;
+    const portrait = document.querySelector("select[name='portrait']").value;
+    if (portrait === "1") price += 11.63;
+    if (portrait === "2") price += 21.01;
+
+    const priceMap = {
+      small_bow: 5.83, "3_bows": 9.34, heart: 3.5, cherry: 8.17,
+      strawberry: 7.01, cat_foot: 11.68, dog_foot: 11.68, teddy: 9.34,
+      butterfly: 7.01, giant_bow: 17.51, bow: 3.5, cat: 11.68, dog: 11.68
+    };
+
+    ["decorOutside", "big3d", "inside3d", "handle"].forEach(name => {
+      const val = document.querySelector(`select[name='${name}']`).value;
+      if (priceMap[val]) price += priceMap[val];
+    });
+
+    const textOption = document.querySelector("select[name='textOption']").value;
+    if (textOption === "inside") price += 5.84;
+    if (textOption === "outside") price += 8.17;
+    if (textOption === "both") price += 11.68;
+
+    document.getElementById("totalPrice").innerText = price.toFixed(2);
+  }
+</script></body>
 </html>
